@@ -1,0 +1,44 @@
+---
+---
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<script type="text/javascript">
+function musicplay(){
+  var music = document.getElementById("music")
+  var control = document.getElementById("music-button")
+  if (music.paused){
+    music.play();
+    control.innerHTML="<b>Playing!</b>"
+  }else{
+    music.pause();
+    control.innerHTML="Paused!"
+  }
+}
+</script>
+
+
+
+{% include head.html %}
+
+<body class="theme-base-08">
+
+  {% include sidebar.html %}
+
+  <div class="content container">
+    <div class="post">
+      <h1 class="post-title">{{ page.title }}</h1>
+        <span class="post-date">{{ page.date | date_to_string }}</span>
+        {{ content }}
+        <h1><a id="music-button"  onclick="musicplay();">control</a></h1>
+        <audio id="music" controls autoplay preload>
+          <source src="{{site.baseurl}}public/Santa Tell Me.mp3" type="audio/mpeg">
+        </audio>
+       <!--  <embed name="santa_tell_me" id="music" src=" loop="true"  hidden="false" autostart="true" width="150" height="90"> -->
+        
+      </div>
+
+    </div>
+
+  </body>
+  </html>
