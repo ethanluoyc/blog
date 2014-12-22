@@ -31,7 +31,7 @@ function musicplay(){
         <span class="post-date">{{ page.date | date_to_string }}</span>
         {{ content }}
         <h1><a id="music-button"  onclick="musicplay();">control</a></h1>
-        <audio id="music" controls autoplay preload>
+        <audio id="music" controls autoplay>
           <source src="{{site.baseurl}}public/Santa Tell Me.mp3" type="audio/mpeg">
         </audio>
        <!--  <embed name="santa_tell_me" id="music" src=" loop="true"  hidden="false" autostart="true" width="150" height="90"> -->
