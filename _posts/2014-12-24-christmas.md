@@ -24,7 +24,7 @@ However I wish that I can go back to the start of the year. But since there is n
 **写于2014年12月23日, 家**  
 <font color=white><b>*这句话在这: </b>以为这就是彩蛋了么,太天真了,也许有一天你就明白了 hint:M_ _ k_ _ _n</font>  
 
-<p style="display:none;">好吧,这是真正的彩蛋了,不过你一定是找不到的:No matter how impulsive, shameless it seems to be, I just hope that you understand me. Everything I do is unconditional as always. 现在的我没有勇气也不能再直接向你表示什么, 但是WAW, 不管今天的我们是什么样, 我相信我一定可以把最好的带给你, 我知道我今年下半年感觉迷失了自我,但是现在的我回来了, 我本以为过一阵子就不会再想起你了但是发现很难, 甚至有时候做梦都还会梦见你. 这篇博客的URL我只会发给你一人了, 我希望你喜欢这里的一切因为它们都是为你做的, 希望你喜欢那棵圣诞树(那也是为你做的),这方面的东西我也不熟练所以其实为了做这个我花了好几天一直在调. 当然做这些不是想要感动自己, 我从来不是一个善于表达的人,特别是面对你我是那样的无力和不知所措,我不希望你因此就觉得是我无能. 如果你曾打开这个链接, 我希望这个段落所写下的能够保护你,祝福你 at all times. 我不知道现在的你看我是什么感觉, 但是, 我相信那里还有一丝牵挂,一丝留念. 我希望这半年发生的只是我们漫长人生岁月的一段小小插曲. 也许你会觉得好马不吃回头草, 既然放下就不要尝试再去拿起,我多么希望我能通过做什么消除你的顾虑,我从不相信我们之间的关系平凡. 只希望我们能再在下一个十字口相遇, 到时候请一定能够和我一样shameless,一样的去用尽全力,圣诞快乐,晚安,Te Amor.</p>
+<p style="display:none;">好吧,这是真正的彩蛋了:) 吴艾蔚圣诞快乐! 其实做这个特辑就是想逗你开心, 希望你能够过得好好的. Now laugh at me.<br>这个博客托管在我的Github<a href="https://github.com/ethanluoyc/ethanluoyc.github.io">网址</a>;Github是程序员的Facebook,负责一个程序的版本管理</p>
 ------
 ###A Formal Introduction (扒一扒今后要讨论的技术)
 因为说好了第三篇文章不能也是杂文,所以也写了下面的..  
