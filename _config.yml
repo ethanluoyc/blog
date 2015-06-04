@@ -1,26 +1,54 @@
-# Dependencies
-markdown:         redcarpet
-highlighter:      pygments
+# Site settings
+title:       Infinite Thought
+email:       your_email@example.com
+author:      Luo Yicheng
+description: "Yicheng's personal thought experiment"
+baseurl:     ""
+url:         "/"
 
-# Permalinks
-permalink:        pretty
-relative_permalinks: true
+# Google analytics
+google_analytics:
 
-# Setup
-title:            Infinite Thoughts
-tagline:          'My personal blog currently built on Hyde'
-description:      '博客正在建设中，许多前端还在开发当中。'
-url:              http://hyde.getpoole.com
-baseurl:          /
+# Optional features
+animated:           false
+show_related_posts: false
+show_post_footers:  false
 
-author:
-  name:           'Ethan'
-  url:            https://twitter.com/mdo
+# Disqus post comments
+# (leave blank to disable Disqus)
+disqus_shortname: "ethanluo"
 
-paginate:         5
+# Social icons
+show_social_icons: true
+github_username:
+stackoverflow_id:
+twitter_username:
+google_plus_id:
+linkedin_username:
+angellist_username:
+bitcoin_url:
+paypal_url:
+flattr_button:
 
-# Custom vars
-version:          0.0.2
+# Post sharing icons
+show_sharing_icons: true
+share_text: 'Share this post!'
+# Change to 'true' to enable individual icons
+share_facebook: true
+share_twitter: true
+share_googleplus: false
+share_linkedin: false
+share_digg: true
+share_tumblr: true
+share_reddit: false
+share_stumbleupon: false
+share_hackernews: false
 
-github:
-  repo:           https://github.com/poole/hyde
+# Build settings
+markdown:     redcarpet
+redcarpet:
+  extensions: ['smart', 'tables', 'with_toc_data']
+permalink:    pretty
+paginate:     3
+sass:
+  compressed: true

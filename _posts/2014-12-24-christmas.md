@@ -1,5 +1,5 @@
 ---
-layout: post_christmas
+layout: post
 title: Merry Christmas!
 ---
 

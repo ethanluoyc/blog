@@ -1,5 +1,5 @@
 ---
-layout: post_christmas
+layout: post
 title: 想要给自己说的话
 ---
 
