@@ -7,7 +7,7 @@ baseurl:     ""
 url:         "/"
 
 # Google analytics
-google_analytics:
+google_analytics: "UA-63740324-1"
 
 # Optional features
 animated:           false
@@ -20,9 +20,9 @@ disqus_shortname: "ethanluo"
 
 # Social icons
 show_social_icons: true
-github_username:
+github_username: "ethanluoyc"
 stackoverflow_id:
-twitter_username:
+twitter_username: "LuoYicheng"
 google_plus_id:
 linkedin_username:
 angellist_username:
