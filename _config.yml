@@ -1,6 +1,6 @@
 # Site settings
 title:       Infinite Thought
-email:       your_email@example.com
+email:
 author:      Luo Yicheng
 description: "Yicheng's personal thought experiment"
 baseurl:     ""
@@ -52,3 +52,4 @@ permalink:    pretty
 paginate:     3
 sass:
   compressed: true
+highlighter: rouge

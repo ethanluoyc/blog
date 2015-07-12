@@ -1,19 +1,14 @@
 ---
 layout: page
-title: About Pixyll
+title: About Me
 permalink: /about/
+
 ---
 
-This Jekyll theme was crafted with <3 by [John Otander](http://johnotander.com)
-([@4lpine](https://twitter.com/4lpine)).
+I am a JC2/12th Grade student studying in [National Junior College](http://www.nationaljc.moe.edu.sg), Singapore. I received the SM1 Scholarship to study in Singapore. I was born in Chengdu, China.
 
-Checkout the [Github repository](https://github.com/johnotander/pixyll) to download it,
-request a feature, report a bug, or contribute. It's free, and open source
-([MIT](http://opensource.org/licenses/MIT)).
+I am very keen in learning about Computer Science. I started working on a project last year (and I still am) with [Mr. Somchaya Liemhetcharat](http://www.somchaya.org) on using Synergy Graph to predict performance of basketball line-ups. An extended abstract has been published on AAMAS 2015. I am mainly involved in using machine learning to build various models to benchmark Adversarial Synergy Graph approach.
 
-Thanks to the following:
+You can follow me on Twitter/Facebook and etc. although I am not an active user.
 
-* [BASSCSS](http://basscss.com)
-* [Jekyll](http://jekyllrb.com)
-* [Refills](http://refills.bourbon.io/)
-* [Solarized](http://ethanschoonover.com/solarized)
+
