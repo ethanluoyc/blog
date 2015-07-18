@@ -3,7 +3,7 @@ layout: post
 title: Merry Christmas!
 ---
 
-#首先，圣诞快乐！
+##首先，圣诞快乐！
 首先祝圣诞快乐! 硬是赶在这两天做了这个圣诞节特辑出来(就是这个红色的主题还有之前的烟花动画)，希望喜欢:)因为还没有加上Google的Page Tracker,所以我甚至不知道这个博客是否有任何的读者. But anyway, 如果你在圣诞当天收到了这个Blog的话(特别是这次专门为圣诞准备的特辑的网址),那么说明你对我一定很特别:)
 
 ![Christmas Tree From IFS](/assets/images/christmas_tree.jpg)
@@ -28,11 +28,11 @@ However I wish that I can go back to the start of the year. But since there is n
 ------
 ###A Formal Introduction (扒一扒今后要讨论的技术)
 因为说好了第三篇文章不能也是杂文,所以也写了下面的..  
-My opinion is always that "width before depth". Knowing one thing in detail helps to solve difficult problems. But most problems in the world are not **difficult**, they are **complex**. So rather than focusing on 
+My opinion is always that "width before depth". Knowing one thing in detail helps to solve difficult problems. But most problems in the world are not **difficult**, they are **complex**. So rather than focusing on
 one tool at all times, I decide to touch as many topics as possible.Anyway, the ultimate goal is to become a **"full-stack developer"** rather than some kind of field-specific experts. I will cover more on how to combine different tools together to build complex products.
 
 So, if you are interested in the following, feel free to discuss them with me. Currently you can contact me by my email, which is ethan_luo_yc[at]gmail.com (delete all "_" and change [at] accordingly.)
-  
+
 * **Front-end Web**: Basically a lot..
 * **Backend Web**: DBs, Flask and etc.
 * **Data Analysis**: I am currently an active user of [Pandas](http://pandas.pydata.org) and [WEKA](www.cs.waikato.ac.nz/ml/weka
