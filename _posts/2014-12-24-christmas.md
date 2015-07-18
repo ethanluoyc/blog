@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Merry Christmas!
+lang: zh
 ---
 
 ##首先，圣诞快乐！

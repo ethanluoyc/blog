@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 想要给自己说的话
+lang: zh
 ---
 
 <p>今天总算是完成了今年会在坡县需要做的research的最后一个item。一大早起来就下到楼下去吃了早饭然后就乖乖地去
