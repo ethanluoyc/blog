@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 叶串之声2015, CLDDS的一年
+lang: zh
 ---
 
 ![image](/assets/images/yechuan.jpg)
