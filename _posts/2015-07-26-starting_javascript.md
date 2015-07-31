@@ -20,23 +20,21 @@ You must notice, though, that how you can add this module to the global scope.
 An example from *Eloquent Javascript*:
 
 ```javascript
-
-	(function(exports) {
-		var names = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday", "Saturday"];
-
-	 	exports.name = function(number) {
-	    	return names[number];
-	  	};
-	 	exports.number = function(name) {
-	    	return names.indexOf(name);
-	  	};
-	})(this.weekDay = {}); // This declares the weekDay in global and pass as a argument. Try change it to this.weekDay only?
-
+(function(exports) {
+	var names = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday", "Saturday"];
+	exports.name = function(number) {
+    	return names[number];
+	};
+	exports.number = function(name) {
+    	return names.indexOf(name);
+	};
+})(this.weekDay = {}); // This declares the weekDay in global and pass as a argument. Try change it to this.weekDay only?
 ```
 
 The below example further compounds the example above: it imports two modules: jQuery and Underscore from the global scope and the export to `mod`. This ensures that the dependencies are correctly introduced to the module so as to avoid any uncertainty in javascript's global scope.
 
 ```javascript
+<<<<<<< Updated upstream
 	(function (mod, $, _) {
 		mod.add = ***;
 		mod.sub = ***;
@@ -45,6 +43,14 @@ The below example further compounds the example above: it imports two modules: j
 
 ##Footnotes:
 
+=======
+(function (mod, $, _) {
+	mod.add = ***;
+	mod.sub = ***;
+}((window.mod = window.mod || {}), jQuery, Underscore)); //window is basically this in the global context.
+```
+
+>>>>>>> Stashed changes
 [^1]: [Immediately-Invoked Function Expression (IIFE)](http://benalman.com/news/2010/11/immediately-invoked-function-expression/#iife)
 
 [^2]: [阮一峰: Javascript模块化编程：模块的写法](http://www.ruanyifeng.com/blog/2012/10/javascript_module.html)
