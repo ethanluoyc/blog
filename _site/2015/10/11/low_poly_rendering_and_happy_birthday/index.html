@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Low-Poly Rendering and Happy Birthday &#8211; Lambda Infinity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Yicheng&#39;s personal thought experiment">
+    <meta name="author" content="Luo Yicheng">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="//2015/10/11/low_poly_rendering_and_happy_birthday/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+    <link rel="stylesheet" href="/css/yue.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    
+
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Low-Poly Rendering and Happy Birthday">
+    <meta property="og:description" content="Yicheng&#39;s personal thought experiment">
+    <meta property="og:url" content="//2015/10/11/low_poly_rendering_and_happy_birthday/">
+    <meta property="og:site_name" content="Lambda Infinity">
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-63740324-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="/" class="site-title">Lambda Infinity</a>
+      <nav class="site-nav right">
+        <a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+<a href="/zh/">中文</a>
+<a href="/en/">English</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+        <div class="social-icons">
+  <div class="left">
+    
+      <a class="fa fa-github" href="https://github.com/ethanluoyc"></a>
+    
+    
+    <a class="fa fa-rss" href="/feed.xml"></a>
+    
+      <a class="fa fa-twitter" href="https://twitter.com/LuoYicheng"></a>
+    
+    
+    
+    
+    
+  </div>
+  <div class="right">
+    
+    
+    
+  </div>
+</div>
+<div class="clearfix"></div>
+
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2 yue">
+  <h1>Low-Poly Rendering and Happy Birthday</h1>
+  <span class="post-meta">Oct 11, 2015</span><br>
+  
+  <span class="post-meta small">3 minute read</span>
+</div>
+
+<article class="post-content yue">
+  <h2 id="preamble">Preamble</h2>
+<p>I was starting to prepare this year's birthday gift for someone, I find Low Poly rendering an artistic gift for her who &quot;likes&quot; arts, so I decided to work on this, however I just keep this as a secret from her so you may just pretend you didn't read anything written by me.</p>
+<h2 id="background">Background</h2>
+<p>A <a href="http://www.zhihu.com/question/29856775">question</a> on 知乎 already suggests how low-poly images can be rendered. In fact, this is the discussion that has inspired me to create one of my own, with Python, of course. I recommend you to take a look at this post as some of the points made are also adopted by my implementation.</p>
+<p>I looked into <a href="https://github.com/Ovilia/Polyvia">羡辙's</a> anwser, she uses WebGL with Three.js to accomplish the task. I am not a graphics person so WebGL. But there are rooms of improvement in the algorithm that she implemented. In fact, I find the quality of her rendered images less satisfactory compared to <a href="">盖孟</a> who also answered the question. 盖孟's answer suggests ways which we can optimize the arrangement of the vertices in the Delaunay triangulation. I couldn't access his paper but I think he used the <a href="https://en.wikipedia.org/wiki/Lloyd&#39;s_algorithm">Lloyd's algorithm</a> to space out the vertices first identified in edge extraction. Scipy has some function that uses Qhull for spatial calculation of the Delaunay triangles and Voronoi Diagrams. It does not however include the Lloyd algorithm tailored to our specific task. So I implemented one of my own. I used the horse image found on 羡辙's' <a href="http://zhangwenli.com/Polyvia/image.html">blog</a> as benchmark, it is under public domain.</p>
+<figure>
+<img src="/assets/images/low_poly_0.png" alt="Start coding! Some initial progress I made" /><figcaption>Start coding! Some initial progress I made</figcaption>
+</figure>
+<p>There are some problems with color rendering of the triangles due to the inability to configure the RGB colours with the <code>plt.pcolor()</code> function in Matplotlib. I have fixed this by using Polygon collections instead of pseudo colours.</p>
+<figure>
+<img src="/assets/images/test1.jpg" alt="After fixing coloring problem, the result" /><figcaption>After fixing coloring problem, the result</figcaption>
+</figure>
+<p>This is the result we have after fixing the coloring problem. It looks okay. You should compare it with her result, you can try different vertices but apparently the features of image are not captured with the random vertex generation method. Notice another difference is that 羡辙 has triangles with larger internal angles. Delaunay triangulation ensures that we obtain triangular subdivisions with as large internal angles as possible. However, the allocation of the vertices in the image space will nevertheless affect the angles, and further, the aesthetics of our low-poly image. We will discuss how we will address the allocation of vertices later.</p>
+<figure>
+<img src="https://raw.githubusercontent.com/Ovilia/Polyvia/gh-pages/src/img/3.png" alt="羡辙&#39;s result, retrieved from Github" /><figcaption>羡辙's result, retrieved from Github</figcaption>
+</figure>
+<figure>
+<img src="/assets/images/test3.jpg" alt="Improvement of my image with Voronoi iteration" /><figcaption>Improvement of my image with Voronoi iteration</figcaption>
+</figure>
+<p>The second one looks slightly better after the Lloyd relaxation. Take a look at the fence at the left bottom. It is smoother in Figure 2 than in Figure 1. I forgot to include the four vertices of the rectangle so it looks slightly different, but more artistic, doesn't it?</p>
+<figure>
+<img src="/assets/images/test2.jpg" alt="Maybe it will look great just by having fewer vertices?" /><figcaption>Maybe it will look great just by having fewer vertices?</figcaption>
+</figure>
+<p>This figure looks better than the aforementioned two figures. Why? For simple reason that it uses fewer veritices. This has promted me to think that whether our defined number of vertices is appropriate. Some of the vertices we randomly choose may live in close proximity and may as well be merged into a single vertex. This is the motivation behind my using K-means to cluster the selected points into fewer number of vertices.</p>
+<p>One arises when we want to do this: Fewer vertices but how many is considered &quot;fewer&quot;?</p>
+<p>I have uploaded my implementation onto Github. PRs are welcome and porting to other languages is also welcome. This is just a piece of code I write in order to familiarize myself to computer vision and machine learnig in image processing so please feel free to use it.</p>
+<p>Yeah so this is it so far.</p>
+
+</article>
+
+
+  <div class="share-page">
+  Share this post!
+
+  <div class="share-links">
+    
+      <a class = "fa fa-facebook" href="https://facebook.com/sharer.php?u=//2015/10/11/low_poly_rendering_and_happy_birthday/" rel="nofollow" target="_blank" title="Share on Facebook"></a>
+    
+
+    
+      <a class="fa fa-twitter" href="https://twitter.com/intent/tweet?text=Low-Poly Rendering and Happy Birthday&url=//2015/10/11/low_poly_rendering_and_happy_birthday/" rel="nofollow" target="_blank" title="Share on Twitter"></a>
+    
+
+    
+
+    
+
+    
+      <a class="fa fa-digg" href="http://digg.com/submit?url=//2015/10/11/low_poly_rendering_and_happy_birthday/&title=Low-Poly Rendering and Happy Birthday" rel="nofollow" target="_blank" title="Share on Digg"></a>
+    
+
+    
+      <a class="fa fa-tumblr" href="http://www.tumblr.com/share/link?url=//2015/10/11/low_poly_rendering_and_happy_birthday/&name=Low-Poly Rendering and Happy Birthday" rel="nofollow" target="_blank" title="Share on Tumblr"></a>
+    
+
+    
+
+    
+
+    
+
+
+  </div>
+</div>
+
+
+
+
+
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname  = 'ethanluoyc';
+    var disqus_identifier = '/2015/10/11/low_poly_rendering_and_happy_birthday';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  <div class="p2 wrap">
+    <div class="measure mt1 center">
+      <small>
+        Theme crafted with &lt;3 by <a href="http://johnotander.com">John Otander</a> (<a href="https://twitter.com/4lpine">@4lpine</a>).<br>
+        &lt;/&gt; available on <a href="https://github.com/johnotander/pixyll">Github</a>.
+      </small>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
