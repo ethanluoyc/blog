@@ -3,79 +3,95 @@
   <channel>
     <title>Lambda Infinity</title>
     <description>Yicheng&#39;s personal thought experiment</description>
-    <link>http://ethanluoyc.github.io/blog/</link>
-    <atom:link href="http://ethanluoyc.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <link>//</link>
+    <atom:link href="//feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
         <title>Low-Poly Rendering and Happy Birthday</title>
         <description>&lt;h2 id=&quot;preamble&quot;&gt;Preamble&lt;/h2&gt;
-&lt;p&gt;I was starting to prepare this year&#39;s birthday gift for someone, I find Low Poly rendering an artistic gift for her who &amp;quot;likes&amp;quot; arts, so I decided to work on this, however I just keep this as a secret from her so you may just pretend you didn&#39;t read anything written by me.&lt;/p&gt;
+
+&lt;p&gt;I was starting to prepare this year&amp;rsquo;s birthday gift for someone, I find Low Poly rendering an artistic gift for her who &amp;ldquo;likes&amp;rdquo; arts, so I decided to work on this, however I just keep this as a secret from her so you may just pretend you didn&amp;rsquo;t read anything written by me.&lt;/p&gt;
+
 &lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
 &lt;p&gt;A &lt;a href=&quot;http://www.zhihu.com/question/29856775&quot;&gt;question&lt;/a&gt; on 知乎 already suggests how low-poly images can be rendered. In fact, this is the discussion that has inspired me to create one of my own, with Python, of course. I recommend you to take a look at this post as some of the points made are also adopted by my implementation.&lt;/p&gt;
-&lt;p&gt;I looked into &lt;a href=&quot;https://github.com/Ovilia/Polyvia&quot;&gt;羡辙&#39;s&lt;/a&gt; anwser, she uses WebGL with Three.js to accomplish the task. I am not a graphics person so WebGL. But there are rooms of improvement in the algorithm that she implemented. In fact, I find the quality of her rendered images less satisfactory compared to &lt;a href=&quot;&quot;&gt;盖孟&lt;/a&gt; who also answered the question. 盖孟&#39;s answer suggests ways which we can optimize the arrangement of the vertices in the Delaunay triangulation. I couldn&#39;t access his paper but I think he used the &lt;a href=&quot;https://en.wikipedia.org/wiki/Lloyd&amp;#39;s_algorithm&quot;&gt;Lloyd&#39;s algorithm&lt;/a&gt; to space out the vertices first identified in edge extraction. Scipy has some function that uses Qhull for spatial calculation of the Delaunay triangles and Voronoi Diagrams. It does not however include the Lloyd algorithm tailored to our specific task. So I implemented one of my own. I used the horse image found on 羡辙&#39;s&#39; &lt;a href=&quot;http://zhangwenli.com/Polyvia/image.html&quot;&gt;blog&lt;/a&gt; as benchmark, it is under public domain.&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;https://farm1.staticflickr.com/631/21972752350_f787f7bf81_b.jpg&quot; alt=&quot;Start coding! Some initial progress I made&quot; /&gt;&lt;figcaption&gt;Start coding! Some initial progress I made&lt;/figcaption&gt;
-&lt;/figure&gt;
+
+&lt;p&gt;I looked into &lt;a href=&quot;https://github.com/Ovilia/Polyvia&quot;&gt;羡辙&amp;rsquo;s&lt;/a&gt; anwser, she uses WebGL with Three.js to accomplish the task. I am not a graphics person so WebGL. But there are rooms of improvement in the algorithm that she implemented. In fact, I find the quality of her rendered images less satisfactory compared to &lt;a href=&quot;&quot;&gt;盖孟&lt;/a&gt; who also answered the question. 盖孟&amp;rsquo;s answer suggests ways which we can optimize the arrangement of the vertices in the Delaunay triangulation. I couldn&amp;rsquo;t access his paper but I think he used the &lt;a href=&quot;https://en.wikipedia.org/wiki/Lloyd&amp;#x27;s_algorithm&quot;&gt;Lloyd&amp;rsquo;s algorithm&lt;/a&gt; to space out the vertices first identified in edge extraction. Scipy has some function that uses Qhull for spatial calculation of the Delaunay triangles and Voronoi Diagrams. It does not however include the Lloyd algorithm tailored to our specific task. So I implemented one of my own. I used the horse image found on 羡辙&amp;rsquo;s&amp;rsquo; &lt;a href=&quot;http://zhangwenli.com/Polyvia/image.html&quot;&gt;blog&lt;/a&gt; as benchmark, it is under public domain.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm1.staticflickr.com/631/21972752350_f787f7bf81_b.jpg&quot; alt=&quot;Start coding! Some initial progress I made&quot;&gt;  &lt;/p&gt;
+
 &lt;p&gt;There are some problems with color rendering of the triangles due to the inability to configure the RGB colours with the &lt;code&gt;plt.pcolor()&lt;/code&gt; function in Matplotlib. I have fixed this by using Polygon collections instead of pseudo colours.&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;https://farm1.staticflickr.com/665/22134795806_dd741162e9_b.jpg&quot; alt=&quot;After fixing coloring problem, the initial result&quot; /&gt;&lt;figcaption&gt;After fixing coloring problem, the initial result&lt;/figcaption&gt;
-&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm1.staticflickr.com/665/22134795806_dd741162e9_b.jpg&quot; alt=&quot;After fixing coloring problem, the initial result&quot;&gt;  &lt;/p&gt;
+
 &lt;p&gt;This is the result we have after fixing the coloring problem. It looks okay. You should compare it with her result, you can try different vertices but apparently the features of image are not captured with the random vertex generation method. Notice another difference is that 羡辙 has triangles with larger internal angles. Delaunay triangulation ensures that we obtain triangular subdivisions with as large internal angles as possible. However, the allocation of the vertices in the image space will nevertheless affect the angles, and further, the aesthetics of our low-poly image. We will discuss how we will address the allocation of vertices later.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/Ovilia/Polyvia/gh-pages/src/img/3.png&quot; alt=&quot;羡辙&amp;#39;s result, retrieved from Github&quot; /&gt;&lt;br /&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/Ovilia/Polyvia/gh-pages/src/img/3.png&quot; alt=&quot;羡辙&amp;#39;s result, retrieved from Github&quot;&gt;&lt;br&gt;
 Take a look at how the vertices are optimized by the Voronoi iteration.&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;https://farm1.staticflickr.com/703/21537993264_cf00fc680e_o.png&quot; alt=&quot;Voronoi iteration&quot; /&gt;&lt;figcaption&gt;Voronoi iteration&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;The second one looks slightly better after the Lloyd relaxation. Take a look at the fence at the left bottom. It is smoother in Figure 2 than in Figure 1. I forgot to include the four vertices of the rectangle so it looks slightly different, but more artistic, doesn&#39;t it?&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;https://farm6.staticflickr.com/5742/21973225448_98b8319ff8_b.jpg&quot; alt=&quot;Maybe it will look great just by having fewer vertices?&quot; /&gt;&lt;figcaption&gt;Maybe it will look great just by having fewer vertices?&lt;/figcaption&gt;
-&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm1.staticflickr.com/703/21537993264_cf00fc680e_o.png&quot; alt=&quot;Voronoi iteration&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;The second one looks slightly better after the Lloyd relaxation. Take a look at the fence at the left bottom. It is smoother in Figure 2 than in Figure 1. I forgot to include the four vertices of the rectangle so it looks slightly different, but more artistic, doesn&amp;rsquo;t it?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://farm6.staticflickr.com/5742/21973225448_98b8319ff8_b.jpg&quot; alt=&quot;Maybe it will look great just by having fewer vertices?&quot;&gt;&lt;/p&gt;
+
 &lt;p&gt;This figure looks better than the aforementioned two figures. Why? For simple reason that it uses fewer veritices. This has promted me to think that whether our defined number of vertices is appropriate. Some of the vertices we randomly choose may live in close proximity and may as well be merged into a single vertex. This is the motivation behind my using K-means to cluster the selected points into fewer number of vertices.&lt;/p&gt;
-&lt;p&gt;One arises when we want to do this: Fewer vertices but how many is considered &amp;quot;fewer&amp;quot;?&lt;/p&gt;
+
+&lt;p&gt;One arises when we want to do this: Fewer vertices but how many is considered &amp;ldquo;fewer&amp;rdquo;?&lt;/p&gt;
+
 &lt;p&gt;I have uploaded my implementation onto Github. PRs are welcome and porting to other languages is also welcome. This is just a piece of code I write in order to familiarize myself to computer vision and machine learnig in image processing so please feel free to use it.&lt;/p&gt;
-&lt;p&gt;I don&#39;t know why I cannot upload this&lt;/p&gt;
+
+&lt;p&gt;I don&amp;rsquo;t know why I cannot upload this&lt;/p&gt;
+
 &lt;p&gt;Yeah so this is it so far.&lt;/p&gt;
 </description>
         <pubDate>Sun, 11 Oct 2015 00:00:00 +0800</pubDate>
-        <link>http://ethanluoyc.github.io/blog/2015/10/11/low_poly_rendering_and_happy_birthday/</link>
-        <guid isPermaLink="true">http://ethanluoyc.github.io/blog/2015/10/11/low_poly_rendering_and_happy_birthday/</guid>
-      </item>
-    
-      <item>
-        <title>On Danmaku, how I implemented the Danmaku system</title>
-        <description>&lt;p&gt;gevent-socketio has some compatibility issue with newer versions of socket.io, hence you need to ensure that the correct version of the javascript is loaded. I will look into this issue one day perhaps..(I am not those kinds of software engineering folk so it is not my strength)&lt;/p&gt;
-</description>
-        <pubDate>Fri, 31 Jul 2015 00:00:00 +0800</pubDate>
-        <link>http://ethanluoyc.github.io/blog/2015/07/31/end-of-cldds/</link>
-        <guid isPermaLink="true">http://ethanluoyc.github.io/blog/2015/07/31/end-of-cldds/</guid>
+        <link>//2015/10/11/low_poly_rendering_and_happy_birthday/</link>
+        <guid isPermaLink="true">//2015/10/11/low_poly_rendering_and_happy_birthday/</guid>
       </item>
     
       <item>
         <title>Javascript - kickstart front-end development</title>
         <description>&lt;p&gt;This post discussed some of the things I have learned in my recent exploration on Javascript.&lt;/p&gt;
+
 &lt;p&gt;A good resource for learning the language is &lt;a href=&quot;http://eloquentjavascript.net/&quot;&gt;Eloquent Javascript&lt;/a&gt;&lt;/p&gt;
+
 &lt;p&gt;Javascript has become more popular for the past few years, possibly due to the popularity introduced by Node.&lt;/p&gt;
+
 &lt;p&gt;Just like Python, Javascript is also dynamically typed. While it is easier for scripting, it also introduces difficulties in type checking in engineering large front-end projects.[^1]&lt;/p&gt;
+
 &lt;h2 id=&quot;modules-in-javascript&quot;&gt;Modules in Javascript&lt;/h2&gt;
-&lt;p&gt;One of the paradigm to declare modules is referred as &lt;strong&gt;Immediately-invoked Function Expression&lt;/strong&gt;, or IIFE, is the terminology coined by Ben Alman &lt;a href=&quot;#fn1&quot; class=&quot;footnoteRef&quot; id=&quot;fnref1&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; (&lt;strong&gt;really worth reading&lt;/strong&gt;). Some of the syntax used here is just tell the interpreter that this is a function expression instead of a declaration. You must notice, though, that how you can add this module to the global scope.&lt;/p&gt;
+
+&lt;p&gt;One of the paradigm to declare modules is referred as &lt;strong&gt;Immediately-invoked Function Expression&lt;/strong&gt;, or IIFE, is the terminology coined by Ben Alman [^2] (&lt;strong&gt;really worth reading&lt;/strong&gt;). Some of the syntax used here is just tell the interpreter that this is a function expression instead of a declaration.
+You must notice, though, that how you can add this module to the global scope.&lt;/p&gt;
+
 &lt;p&gt;An example from &lt;em&gt;Eloquent Javascript&lt;/em&gt;:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode javascript&quot;&gt;&lt;code class=&quot;sourceCode javascript&quot;&gt;(&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt;(exports) &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kw&quot;&gt;var&lt;/span&gt; names &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; [&lt;span class=&quot;st&quot;&gt;&amp;quot;Sunday&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;Monday&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;Tuesday&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;Wednesday&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;quot;Thursday&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;Friday&amp;quot;&lt;/span&gt;&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;quot;Saturday&amp;quot;&lt;/span&gt;]&lt;span class=&quot;op&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;va&quot;&gt;exports&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt;(number) &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; names[number]&lt;span class=&quot;op&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;op&quot;&gt;};&lt;/span&gt;
-    &lt;span class=&quot;va&quot;&gt;exports&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt;(name) &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;cf&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;names&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;indexOf&lt;/span&gt;(name)&lt;span class=&quot;op&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;op&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;op&quot;&gt;}&lt;/span&gt;)(&lt;span class=&quot;kw&quot;&gt;this&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;weekDay&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;{}&lt;/span&gt;)&lt;span class=&quot;op&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;// This declares the weekDay in global and pass as a argument. Try change it to this.weekDay only?&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The below example further compounds the example above: it imports two modules: jQuery and Underscore from the global scope and the export to &lt;code&gt;mod&lt;/code&gt;. This ensures that the dependencies are correctly introduced to the module so as to avoid any uncertainty in javascript&#39;s global scope.&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode javascript&quot;&gt;&lt;code class=&quot;sourceCode javascript&quot;&gt;&lt;span class=&quot;op&quot;&gt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt; Updated upstream
-    (&lt;span class=&quot;kw&quot;&gt;function&lt;/span&gt; (mod&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; $&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; _) &lt;span class=&quot;op&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;va&quot;&gt;mod&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;***;&lt;/span&gt;
-        &lt;span class=&quot;va&quot;&gt;mod&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;sub&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;***;&lt;/span&gt;
-    &lt;span class=&quot;op&quot;&gt;}&lt;/span&gt;((&lt;span class=&quot;va&quot;&gt;window&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;mod&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;va&quot;&gt;window&lt;/span&gt;.&lt;span class=&quot;at&quot;&gt;mod&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;{}&lt;/span&gt;)&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; jQuery&lt;span class=&quot;op&quot;&gt;,&lt;/span&gt; Underscore))&lt;span class=&quot;op&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;co&quot;&gt;//window is basically this in the global context.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;names&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Sunday&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Monday&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Tuesday&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Wednesday&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Thursday&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Friday&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Saturday&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;indexOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;weekDay&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{});&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// This declares the weekDay in global and pass as a argument. Try change it to this.weekDay only?&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The below example further compounds the example above: it imports two modules: jQuery and Underscore from the global scope and the export to &lt;code&gt;mod&lt;/code&gt;. This ensures that the dependencies are correctly introduced to the module so as to avoid any uncertainty in javascript&amp;rsquo;s global scope.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Updated&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;upstream&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;mod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;***&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;mod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sub&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;***&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}((&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mod&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;mod&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}),&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jQuery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Underscore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//window is basically this in the global context.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id=&quot;footnotes&quot;&gt;Footnotes:&lt;/h2&gt;
-&lt;p&gt;======= (function (mod, $, _) { mod.add = &lt;strong&gt;&lt;em&gt;; mod.sub = &lt;/em&gt;&lt;/strong&gt;; }((window.mod = window.mod || {}), jQuery, Underscore)); //window is basically this in the global context. ```&lt;/p&gt;
+
+&lt;p&gt;=======
+(function (mod, $, _) {
+    mod.add = &lt;em&gt;**;
+    mod.sub = *&lt;/em&gt;*;
+}((window.mod = window.mod || {}), jQuery, Underscore)); //window is basically this in the global context.
+&amp;ldquo;`&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;blockquote&gt;
 &lt;blockquote&gt;
@@ -83,7 +99,8 @@ Take a look at how the vertices are optimized by the Voronoi iteration.&lt;/p&gt
 &lt;blockquote&gt;
 &lt;blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Stashed changes [^1]: &lt;a href=&quot;http://benalman.com/news/2010/11/immediately-invoked-function-expression/#iife&quot;&gt;Immediately-Invoked Function Expression (IIFE)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Stashed changes
+[^1]: &lt;a href=&quot;http://benalman.com/news/2010/11/immediately-invoked-function-expression/#iife&quot;&gt;Immediately-Invoked Function Expression (IIFE)&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/blockquote&gt;
 &lt;/blockquote&gt;
@@ -91,146 +108,166 @@ Take a look at how the vertices are optimized by the Voronoi iteration.&lt;/p&gt
 &lt;/blockquote&gt;
 &lt;/blockquote&gt;
 &lt;/blockquote&gt;
-&lt;section class=&quot;footnotes&quot;&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id=&quot;fn1&quot;&gt;&lt;p&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/10/javascript_module.html&quot;&gt;阮一峰: Javascript模块化编程：模块的写法&lt;/a&gt;&lt;a href=&quot;#fnref1&quot;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/section&gt;
+
+&lt;p&gt;[^2]: &lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/10/javascript_module.html&quot;&gt;阮一峰: Javascript模块化编程：模块的写法&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 26 Jul 2015 00:00:00 +0800</pubDate>
-        <link>http://ethanluoyc.github.io/blog/2015/07/26/starting_javascript/</link>
-        <guid isPermaLink="true">http://ethanluoyc.github.io/blog/2015/07/26/starting_javascript/</guid>
+        <link>//2015/07/26/starting_javascript/</link>
+        <guid isPermaLink="true">//2015/07/26/starting_javascript/</guid>
       </item>
     
       <item>
         <title>How long does it take to get popular on Zhihu?</title>
         <description>&lt;p&gt;I recently posted an &lt;a href=&quot;http://www.zhihu.com/question/26103352/answer/53690075&quot;&gt;answer&lt;/a&gt; on Zhihu, by the time I uploaded this post, there are more than 950 likes and is recommended by the editors to the Explore section.&lt;/p&gt;
-&lt;p&gt;As a naive data scientist (so I call myself to be one), a good thing will be to take a look at how long it takes for a post to become popular. My friend actually &lt;a href=&quot;http://www.zhihu.com/question/20694193/answer/48296581&quot;&gt;posted&lt;/a&gt; something before that eventually received over 1000 posts and got it all the way to 知乎日报. At the time she got around 200 upvotes, I decided to write a simple Python script to keep track of the total upvotes that she received. Here you go:&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;
-&lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; urllib2
-&lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; re, os
-&lt;span class=&quot;im&quot;&gt;import&lt;/span&gt; datetime, time
-pat &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; re.&lt;span class=&quot;bu&quot;&gt;compile&lt;/span&gt;(&lt;span class=&quot;st&quot;&gt;&amp;#39;&amp;lt;span class=&amp;quot;zm-profile-header-icon&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;strong&amp;gt;[0-9]+&amp;lt;/strong&amp;gt;&amp;#39;&lt;/span&gt;)
-filepath &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;./time_series.csv&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;cf&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;dv&quot;&gt;1&lt;/span&gt;:
-    req &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; urllib2.Request(&lt;span class=&quot;st&quot;&gt;&amp;#39;http://www.zhihu.com/people/aiwei-wu&amp;#39;&lt;/span&gt;)
-    req.add_header(&lt;span class=&quot;st&quot;&gt;&amp;#39;Cache-Control&amp;#39;&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;&amp;#39;max-age=0&amp;#39;&lt;/span&gt;)
-    res &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; urllib2.urlopen(req).read()
-    match &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; pat.search(res)
 
-    &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; match:
-        string &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; match.group()
-        number &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; re.search(&lt;span class=&quot;st&quot;&gt;&amp;#39;[0-9]+&amp;#39;&lt;/span&gt;, string).group()
-        &lt;span class=&quot;bu&quot;&gt;print&lt;/span&gt; time.ctime(), &lt;span class=&quot;st&quot;&gt;&amp;#39;,&amp;#39;&lt;/span&gt; , number
-        mode &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;a&amp;#39;&lt;/span&gt; &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; os.path.exists(filepath) &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;w&amp;#39;&lt;/span&gt;
-        &lt;span class=&quot;cf&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;bu&quot;&gt;open&lt;/span&gt;(filepath,mode) &lt;span class=&quot;im&quot;&gt;as&lt;/span&gt; f:
-            output &lt;span class=&quot;op&quot;&gt;=&lt;/span&gt; time.ctime() &lt;span class=&quot;op&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&amp;#39;,&amp;#39;&lt;/span&gt; &lt;span class=&quot;op&quot;&gt;+&lt;/span&gt; number &lt;span class=&quot;op&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;ch&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;&amp;#39;&lt;/span&gt;
-            f.write(output)
-    time.sleep(&lt;span class=&quot;dv&quot;&gt;600&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Without introducing anything (aka the use of a simple &lt;code&gt;time.sleep()&lt;/code&gt; on the last line) asynchronous, it basically keeps track of the number of likes on her profile pages. I used simple regular expressions to retrieve the number of upvotes from the profile page. Of course I made some assumptions here: I assumed that the number of upvotes on the profile page reflects the upvotes on her very specific post. Given the immense popularity of her one particular post and the &amp;quot;mediocre performance&amp;quot; of her other answers. This should be a reasonable assumption in order to achieve fast prototyping. The script will save the times series of the upvotes to a csv so you can do some plotting with it.&lt;/p&gt;
+&lt;p&gt;As a naive data scientist (so I call myself to be one), a good thing will be to take a look at how long it takes for a post to become popular. My friend actually &lt;a href=&quot;http://www.zhihu.com/question/20694193/answer/48296581&quot;&gt;posted&lt;/a&gt; something before that eventually received over 1000 posts and got it all the way to 知乎日报. At the time she got around 200 upvotes, I decided to write a simple Python script to keep track of the total upvotes that she received. Here you go:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib2&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;lt;span class=&amp;quot;zm-profile-header-icon&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;strong&amp;gt;[0-9]+&amp;lt;/strong&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;filepath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;./time_series.csv&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;req&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;http://www.zhihu.com/people/aiwei-wu&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Cache-Control&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;max-age=0&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urlopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;[0-9]+&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ctime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;,&amp;#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;a&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filepath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;w&amp;#39;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filepath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;output&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ctime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;,&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;600&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Without introducing anything (aka the use of a simple &lt;code&gt;time.sleep()&lt;/code&gt; on the last line) asynchronous, it basically keeps track of the number of likes on her profile pages. I used simple regular expressions to retrieve the number of upvotes from the profile page. Of course I made some assumptions here: I assumed that the number of upvotes on the profile page reflects the upvotes on her very specific post. Given the immense popularity of her one particular post and the &amp;ldquo;mediocre performance&amp;rdquo; of her other answers. This should be a reasonable  assumption in order to achieve fast prototyping. The script will save the times series of the upvotes to a csv so you can do some plotting with it.&lt;/p&gt;
 </description>
         <pubDate>Sat, 18 Jul 2015 00:00:00 +0800</pubDate>
-        <link>http://ethanluoyc.github.io/blog/2015/07/18/becoming-popular-online-how-long-to-take/</link>
-        <guid isPermaLink="true">http://ethanluoyc.github.io/blog/2015/07/18/becoming-popular-online-how-long-to-take/</guid>
+        <link>//2015/07/18/becoming-popular-online-how-long-to-take/</link>
+        <guid isPermaLink="true">//2015/07/18/becoming-popular-online-how-long-to-take/</guid>
       </item>
     
       <item>
         <title>叶串之声2015, CLDDS的一年</title>
-        <description>&lt;figure&gt;
-&lt;img src=&quot;/assets/images/yechuan.jpg&quot; alt=&quot;image&quot; /&gt;&lt;figcaption&gt;image&lt;/figcaption&gt;
-&lt;/figure&gt;
+        <description>&lt;p&gt;&lt;img src=&quot;/assets/images/yechuan.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+
 &lt;p&gt;转眼间一年的任期已经结束. 新的ExCo选举也在昨天落下帷幕。怎么说对最终的结果也不感到意外吧， an optimal solution in a suboptimal condition. 明年今日命运几何就交给接下来的新人们了，我也是对他们很有信心的:)&lt;/p&gt;
+
 &lt;p&gt;熬夜完成了宣传片，发现Stock Footage简直是世界上最Productive的素材，剪完Video还可以截屏下来做成上面的艺术照（见上），这是我第一次用Final Cut Pro 来剪辑视频，原先都是用的Adobe Premiere。感觉Final Cut的操作要直观不少但是显然我还是不是很会用（多亏Jimmy做了些技术指导，要不然剪出来的视频会看起来更加粗制滥造）&lt;/p&gt;
-&lt;center&gt;
-&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/qVCSzszMYEA&quot; frameborder=&quot;0&quot; allowfullscreen&gt;
-&lt;/iframe&gt;
-&lt;/center&gt;
-&lt;p&gt;&lt;strike&gt;&lt;未完待续&gt;&lt;/strike&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/qVCSzszMYEA&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strike&gt;&amp;lt;未完待续&amp;gt;&lt;/strike&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;只愿往事不再重演&quot;&gt;只愿往事不再重演&lt;/h2&gt;
+
 &lt;p&gt;第一次表演是在小学三年级。&lt;/p&gt;
+
 &lt;p&gt;那天教语文的班主任在班上宣布每个组要准备一个与某个节日有关的小品在班上展示。在组内的同学们一筹莫展的时候我却抖了个机灵花了一个周末研究了世界水日，带着一个还有注音的剧本硬是第二周拿到组里面跟大家分享。平时在班里没少受欺负的我竟然破天荒赢得了几个“恶霸”的赞同，于是我们在一个普普通通的weekday，我办着一个荒唐的“水娃“，硬是生动形象（亦或是张牙舞爪）地在全班面前从世界水日的来历硬是阐述了整个节日的历史。这也算是第一次自己的小打小闹赢得了大伙的认同，后来学习包公审驴老师又叫我们表演小品，我自然而然的担任起了“编导”的角色，等到我记忆里对这个故事以及世界水日的知识遗忘的差不多的时候，那已经是我初中又一次拿着包公审驴的剧本，重新拼凑了一只团队并拿了学校艺术节的二等奖，被当成了班上的御用编剧兼导演。&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;https://dl.dropbox.com/s/l7igzpas9w8b5rw/yechuan_scene.jpg?dl=1&quot; alt=&quot;scene&quot; /&gt;&lt;figcaption&gt;scene&lt;/figcaption&gt;
-&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://dl.dropbox.com/s/l7igzpas9w8b5rw/yechuan_scene.jpg?dl=1&quot; alt=&quot;scene&quot;&gt;&lt;/p&gt;
+
 &lt;p&gt;那时并不懂得任何跟表演有关的东西，只是凭着记忆和想象，把自己的构思在脑海里一遍又一遍重现，最后把自己所想投射到报名的演员上。从这点来说，我显然是一个略微暴政的导演，硬是把剧本的每个细节记录在脑海的步伐是表情中。经过了过往经历的反复打炼最后成型，现在想来倒真的是和斯坦尼斯拉夫斯基体验学派有几分相似。&lt;/p&gt;
+
 &lt;p&gt;可笑的是，需要从过去汲取经验的我几乎没有什么经验可谈。当别人在观望隔壁班的女神的时候我窝在一个角落刷着科学杂志的入门微分。总以为大家让我来编小品是因为我天赋异禀，直到在无数个夜晚反复琢磨叶串的剧本的时候才意识到可能只是其他人不乐意而已：不乐意反复从过去去提炼，因为过去早已因丰富而沉重，不愿再追溯罢了。&lt;/p&gt;
+
 &lt;p&gt;只不过发现多么残酷的现实却是脑补自自己胡乱的想象，多么复杂的情绪最终都简化成舞台的一次嘴角上扬，亦或是排练时的一个撅嘴，皱眉，吐舌。发现过往的体验不过是为了我们此时此刻的一个微妙的表情，却足以让人沉醉到抛弃一切。&lt;/p&gt;
+
 &lt;p&gt;只愿往事不再重演。&lt;/p&gt;
 </description>
         <pubDate>Sun, 12 Jul 2015 00:00:00 +0800</pubDate>
-        <link>http://ethanluoyc.github.io/blog/2015/07/12/yechuan_cldds%20after%20a%20year/</link>
-        <guid isPermaLink="true">http://ethanluoyc.github.io/blog/2015/07/12/yechuan_cldds%20after%20a%20year/</guid>
+        <link>//2015/07/12/yechuan_cldds%20after%20a%20year/</link>
+        <guid isPermaLink="true">//2015/07/12/yechuan_cldds%20after%20a%20year/</guid>
       </item>
     
       <item>
         <title>Merry Christmas!</title>
-        <description>&lt;h2 id=&quot;首先圣诞快乐&quot;&gt;首先，圣诞快乐！&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;首先，圣诞快乐！&quot;&gt;首先，圣诞快乐！&lt;/h2&gt;
+
 &lt;p&gt;首先祝圣诞快乐! 硬是赶在这两天做了这个圣诞节特辑出来(就是这个红色的主题还有之前的烟花动画)，希望喜欢:)因为还没有加上Google的Page Tracker,所以我甚至不知道这个博客是否有任何的读者. But anyway, 如果你在圣诞当天收到了这个Blog的话(特别是这次专门为圣诞准备的特辑的网址),那么说明你对我一定很特别:)&lt;/p&gt;
-&lt;figure&gt;
-&lt;img src=&quot;/assets/images/christmas_tree.jpg&quot; alt=&quot;Christmas Tree From IFS&quot; /&gt;&lt;figcaption&gt;Christmas Tree From IFS&lt;/figcaption&gt;
-&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/christmas_tree.jpg&quot; alt=&quot;Christmas Tree From IFS&quot;&gt;&lt;/p&gt;
+
 &lt;p&gt;(这棵来自IFS的圣诞树送给你,希望你喜欢)&lt;/p&gt;
-&lt;p&gt;一年就要过去了,记得早在六月就跟他们说到要是能把今年是道坎要是熬过去就好了。转眼间就要圣诞了，这一年下来虽然说累的半生不死收获也是头两年在SG所比不了的.学到了很多,学术上的也好生活上的也好. 从小就有喜欢整理的习惯. 自己的文件从来都是分门别累的装好,拿着label maker一个一个的标记好才放好. 从来不喜欢在脑子里面留事情:总是给自己列一个清单然后想着照着上面一件一件地做就好了. 记得小时候总是很不屑,觉得这时间上没什么烦恼是理不清的;总是觉得别人的担忧是矫情,顾虑是软弱,而悲伤则是多愁善感. 到了现在, 看至房间里的桌上堆满了各式各样的书和作业; 电脑的桌面乱糟糟地摆满了这个假期得到的实验数据; 喝一口昨天接上来的凉白开, 那也是醍醐灌顶,茅塞顿开,只见一行金字直印脑海:&amp;quot;时间是检验真理的唯一标准&amp;quot;. 用一句人话概括大概就是:&amp;quot;只有经历过才知道.&amp;quot; 子曰Trial and error,这一年或者大半年栽的跟头足以让我半身受用. 不得不怀疑老天是不是也犯了拖延症, 18年的经验教训80%都打包在今年给我了. 不过至少到了今天,在一年来血的教训和泪的感悟中, 我可以特别负责任的告诉自己: 这回我是真**成年了.&lt;/p&gt;
-&lt;p&gt;性格里是个很喜欢忍的人, 有什么东西很难一股脑的发泄出来, 反而是把不成问题的问题变成了问题(好多问题..) 有些事要懂得主动, 另外Don&#39;t be an a**hole if possible. 这三点, 自己在进步, 继续保持就好了.&lt;/p&gt;
-&lt;p&gt;However I wish that I can go back to the start of the year. But since there is no such thing as time travel, let&#39;s just hope that things get better again as if it&#39;s new. Things will only be better again if it&#39;s new anyway.&lt;/p&gt;
-&lt;p&gt;一切的冲动最终都会平静下来, but what still remains, I shall pursue. &lt;font color=white&gt;&lt;b&gt;彩蛋:这其实还有句话,找找看*&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;所以, 回顾这一年, 也是时候感叹一声:圣诞快乐,新年快乐.公共场合也就不说更多了.&lt;/p&gt;
-&lt;p&gt;以上.&lt;br /&gt;
-&lt;strong&gt;写于2014年12月23日, 家&lt;/strong&gt;&lt;br /&gt;
-&lt;font color=white&gt;&lt;b&gt;*这句话在这: &lt;/b&gt;以为这就是彩蛋了么,太天真了,也许有一天你就明白了 hint:M_ _ k_ _ _n&lt;/font&gt;&lt;/p&gt;
-&lt;p style=&quot;display:none;&quot;&gt;
-好吧,这是真正的彩蛋了:) 吴艾蔚圣诞快乐! 其实做这个特辑就是想逗你开心, 希望你能够过得好好的. Now laugh at me.&lt;br&gt;这个博客托管在我的Github&lt;a href=&quot;https://github.com/ethanluoyc/ethanluoyc.github.io&quot;&gt;网址&lt;/a&gt;;Github是程序员的Facebook,负责一个程序的版本管理
-&lt;/p&gt;
-&lt;hr /&gt;
+
+&lt;p&gt;一年就要过去了,记得早在六月就跟他们说到要是能把今年是道坎要是熬过去就好了。转眼间就要圣诞了，这一年下来虽然说累的半生不死收获也是头两年在SG所比不了的.学到了很多,学术上的也好生活上的也好. 从小就有喜欢整理的习惯. 自己的文件从来都是分门别累的装好,拿着label maker一个一个的标记好才放好. 从来不喜欢在脑子里面留事情:总是给自己列一个清单然后想着照着上面一件一件地做就好了. 记得小时候总是很不屑,觉得这时间上没什么烦恼是理不清的;总是觉得别人的担忧是矫情,顾虑是软弱,而悲伤则是多愁善感. 到了现在, 看至房间里的桌上堆满了各式各样的书和作业; 电脑的桌面乱糟糟地摆满了这个假期得到的实验数据; 喝一口昨天接上来的凉白开, 那也是醍醐灌顶,茅塞顿开,只见一行金字直印脑海:&amp;ldquo;时间是检验真理的唯一标准&amp;rdquo;. 用一句人话概括大概就是:&amp;ldquo;只有经历过才知道.&amp;rdquo; 子曰Trial and error,这一年或者大半年栽的跟头足以让我半身受用. 不得不怀疑老天是不是也犯了拖延症, 18年的经验教训80%都打包在今年给我了. 不过至少到了今天,在一年来血的教训和泪的感悟中, 我可以特别负责任的告诉自己: 这回我是真**成年了.&lt;/p&gt;
+
+&lt;p&gt;性格里是个很喜欢忍的人, 有什么东西很难一股脑的发泄出来, 反而是把不成问题的问题变成了问题(好多问题..) 有些事要懂得主动, 另外Don&amp;rsquo;t be an a**hole if possible. 这三点, 自己在进步, 继续保持就好了.  &lt;/p&gt;
+
+&lt;p&gt;However I wish that I can go back to the start of the year. But since there is no such thing as time travel, let&amp;rsquo;s just hope that things get better again as if it&amp;rsquo;s new. Things will only be better again if it&amp;rsquo;s new anyway.  &lt;/p&gt;
+
+&lt;p&gt;一切的冲动最终都会平静下来, but what still remains, I shall pursue. &lt;font color=white&gt;&lt;b&gt;彩蛋:这其实还有句话,找找看*&lt;/b&gt;&lt;/font&gt;  &lt;/p&gt;
+
+&lt;p&gt;所以, 回顾这一年, 也是时候感叹一声:圣诞快乐,新年快乐.公共场合也就不说更多了.  &lt;/p&gt;
+
+&lt;p&gt;以上.&lt;br&gt;
+&lt;strong&gt;写于2014年12月23日, 家&lt;/strong&gt;&lt;br&gt;
+&lt;font color=white&gt;&lt;b&gt;*这句话在这: &lt;/b&gt;以为这就是彩蛋了么,太天真了,也许有一天你就明白了 hint:M_ _ k_ _ _n&lt;/font&gt;  &lt;/p&gt;
+
+&lt;p style=&quot;display:none;&quot;&gt;好吧,这是真正的彩蛋了:) 吴艾蔚圣诞快乐! 其实做这个特辑就是想逗你开心, 希望你能够过得好好的. Now laugh at me.&lt;br&gt;这个博客托管在我的Github&lt;a href=&quot;https://github.com/ethanluoyc/ethanluoyc.github.io&quot;&gt;网址&lt;/a&gt;;Github是程序员的Facebook,负责一个程序的版本管理&lt;/p&gt;
+
+&lt;hr&gt;
+
 &lt;h3 id=&quot;a-formal-introduction-扒一扒今后要讨论的技术&quot;&gt;A Formal Introduction (扒一扒今后要讨论的技术)&lt;/h3&gt;
-&lt;p&gt;因为说好了第三篇文章不能也是杂文,所以也写了下面的..&lt;br /&gt;
-My opinion is always that &amp;quot;width before depth&amp;quot;. Knowing one thing in detail helps to solve difficult problems. But most problems in the world are not &lt;strong&gt;difficult&lt;/strong&gt;, they are &lt;strong&gt;complex&lt;/strong&gt;. So rather than focusing on one tool at all times, I decide to touch as many topics as possible.Anyway, the ultimate goal is to become a &lt;strong&gt;&amp;quot;full-stack developer&amp;quot;&lt;/strong&gt; rather than some kind of field-specific experts. I will cover more on how to combine different tools together to build complex products.&lt;/p&gt;
-&lt;p&gt;So, if you are interested in the following, feel free to discuss them with me. Currently you can contact me by my email, which is ethan_luo_yc[at]gmail.com (delete all &amp;quot;_&amp;quot; and change [at] accordingly.)&lt;/p&gt;
+
+&lt;p&gt;因为说好了第三篇文章不能也是杂文,所以也写了下面的..&lt;br&gt;
+My opinion is always that &amp;ldquo;width before depth&amp;rdquo;. Knowing one thing in detail helps to solve difficult problems. But most problems in the world are not &lt;strong&gt;difficult&lt;/strong&gt;, they are &lt;strong&gt;complex&lt;/strong&gt;. So rather than focusing on
+one tool at all times, I decide to touch as many topics as possible.Anyway, the ultimate goal is to become a &lt;strong&gt;&amp;ldquo;full-stack developer&amp;rdquo;&lt;/strong&gt; rather than some kind of field-specific experts. I will cover more on how to combine different tools together to build complex products.&lt;/p&gt;
+
+&lt;p&gt;So, if you are interested in the following, feel free to discuss them with me. Currently you can contact me by my email, which is ethan&lt;em&gt;luo&lt;/em&gt;yc[at]gmail.com (delete all &amp;ldquo;_&amp;rdquo; and change [at] accordingly.)&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Front-end Web&lt;/strong&gt;: Basically a lot..&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Backend Web&lt;/strong&gt;: DBs, Flask and etc.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Data Analysis&lt;/strong&gt;: I am currently an active user of &lt;a href=&quot;http://pandas.pydata.org&quot;&gt;Pandas&lt;/a&gt; and &lt;a href=&quot;www.cs.waikato.ac.nz/ml/weka&quot;&gt;WEKA&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Artificial Intelligence&lt;/strong&gt;*: a new field I am trying to get more hands-on experience. I started learning AI from June this year when I am doing experiments with my H3 report. We use something interesting known as a &amp;quot;Synergy Graph&amp;quot; to predict the performace of NBA basketball teams (you can have a more detailed explanation by visting my mentor&#39;s &lt;a href=&quot;http://somchaya.org/index.html&quot;&gt;personal site&lt;/a&gt;, if possible, I will try to upload my report next year). As the year end is approaching and I am currently busy writing up the final report, I will have postpond the article to this topic to sometime next year. The theory is quite boring but the part where I &amp;quot;scrape&amp;quot; data from NBA sites are quite useful in other applications. I will get back to this next yearL:)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Artificial Intelligence&lt;/strong&gt;*: a new field I am trying to get more hands-on experience. I started learning AI from June this year when I am doing experiments with my H3 report. We use something interesting known as a &amp;ldquo;Synergy Graph&amp;rdquo;  to predict the performace of NBA basketball teams (you can have a more detailed explanation by visting my mentor&amp;rsquo;s &lt;a href=&quot;http://somchaya.org/index.html&quot;&gt;personal site&lt;/a&gt;, if possible, I will try to upload my report next year). As the year end is approaching and I am currently busy writing up the final report, I will have postpond the article to this topic to sometime next year. The theory is quite boring but the part where I &amp;ldquo;scrape&amp;rdquo; data from NBA sites are quite useful in other applications. I will get back to this next yearL:)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;关于这次特辑的制作&lt;/strong&gt;&lt;br /&gt;
+
+&lt;p&gt;&lt;strong&gt;关于这次特辑的制作&lt;/strong&gt;&lt;br&gt;
 作为一个常年拿Python做数据分析的人或者是一心研究网站框架的人，对前端的理解和掌握很有限，也就基本上停留在看到HTML可以自己修改一下.这次做这个特辑算是积累了许多有用的经验. Javascript许多的技术也还在尝试中，并没有投入到生产环境中去，不过这次做的前端算是给接下来建站积累经验。Github托管的博客不允许使用服务器计算。倒是给我联系前端留下很多机会。这个Blog在两个月之后总算进入了0.0.2，接下来想要通过第三方的服务来实现评论功能，初步打算用&lt;a href=&quot;http://docs.disqus.com/developers/universal/&quot;&gt;Disqus&lt;/a&gt;来做评论系统,等有时间了就implement就是了.&lt;/p&gt;
 </description>
         <pubDate>Wed, 24 Dec 2014 00:00:00 +0800</pubDate>
-        <link>http://ethanluoyc.github.io/blog/2014/12/24/christmas/</link>
-        <guid isPermaLink="true">http://ethanluoyc.github.io/blog/2014/12/24/christmas/</guid>
+        <link>//2014/12/24/christmas/</link>
+        <guid isPermaLink="true">//2014/12/24/christmas/</guid>
       </item>
     
       <item>
         <title>想要给自己说的话</title>
-        <description>&lt;p&gt;
-今天总算是完成了今年会在坡县需要做的research的最后一个item。一大早起来就下到楼下去吃了早饭然后就乖乖地去 开research的会去了。下午回到宿舍同学们都出去吃饭唱歌看电影自己却还一个人坐在桌前写自己的渣代码。等到年底回去了就可以把剩下几年的数据跑完然后就能够安安心心地写年底的report了。日子虽然说单调但是还是比较闲适自在，只希望一直能够这样下去该多好。
-&lt;/p&gt;
+        <description>&lt;p&gt;今天总算是完成了今年会在坡县需要做的research的最后一个item。一大早起来就下到楼下去吃了早饭然后就乖乖地去
+开research的会去了。下午回到宿舍同学们都出去吃饭唱歌看电影自己却还一个人坐在桌前写自己的渣代码。等到年底回去了就可以把剩下几年的数据跑完然后就能够安安心心地写年底的report了。日子虽然说单调但是还是比较闲适自在，只希望一直能够这样下去该多好。&lt;/p&gt;
+
 &lt;p&gt;前几天和蔡蔡在楼下端着杯水讨论人生问题。平日里对于自己所相信的总是那么的自信但是一旦真正到了别人面前却开始怀疑自己。既然作为一个程序员那么最好的方式就是用代码来表示谈话的主要内容，见下：&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode python&quot;&gt;&lt;code class=&quot;sourceCode python&quot;&gt;    &lt;span class=&quot;cf&quot;&gt;while&lt;/span&gt; believe:
-        [thing.do() &lt;span class=&quot;cf&quot;&gt;for&lt;/span&gt; thing &lt;span class=&quot;op&quot;&gt;in&lt;/span&gt; things]
-        &lt;span class=&quot;cf&quot;&gt;if&lt;/span&gt; success:
-            &lt;span class=&quot;cf&quot;&gt;break&lt;/span&gt;
-        &lt;span class=&quot;cf&quot;&gt;else&lt;/span&gt;:  &lt;span class=&quot;co&quot;&gt;# I am just trying to be explicit...&lt;/span&gt;
-            &lt;span class=&quot;cf&quot;&gt;pass&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;believe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;thing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;do&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;thing&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;things&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;success&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# I am just trying to be explicit...&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;总之无论怎么样现阶段都是这样的死循环，折腾折腾后面的路自然就轻松了很多。不知道从哪看到的说的是应该把这种事情当成是锻炼自己的一个绝佳机会。其实现在想想也真的是很有道理。就像是今年&lt;b&gt;“莫名其妙”&lt;/b&gt;地参与到H3的research。从一开始停留在一个只会运用面向过程编程的小白到今天可以稍微有点自信的说自己可以拿python来解决问题另外还可以宣称自己知道如何写网页爬虫如何抓取数据顺便拉下来做下数据挖掘。再到现在在这个装逼的Github Atom编辑器里面打这些奇奇怪怪的字，一会要是有时间可能还想要刷一下Node.js的教程甚至是跑到EdX上面把MIT这周的作业通宵写完。感觉自己距离一个all-round coder又近了许多。想到自己脑袋里面的一个个想法需要自己有全能的技术才能去实现，但是一旦有所成就必然可以给自己带来前所未有的快感，因此大概现在的一些不如意放到漫漫人生路上一定也显得不足挂齿。&lt;/p&gt;
+
 &lt;p&gt;空话又说多了。周五就要回去了，回去还有很多的事，亦或是未知亦或是挑战，在等着自己。回去前这两天打算做一些计划，把锻炼也好工作也好刷SAT单词真题也好这些事情统统包括进去。自己真的是需要一个完善的计划要不然很难执行下去，因为到时候来思考该做什么这样的成本实在是太高。这个Blog本来也不是想要拿来向Tumblr一样发泄自己的情绪的所以这应该会是很长一段时间最后的一篇软文。。今后是不是更新一些有技术含量的文章。自己每次最感激别人写下各种教程，等到了自己对各种技术更熟的时候也是应该把自己的知识贡献给社会的：D&lt;/p&gt;
+
 &lt;p&gt;感觉这样一个人在这码字也没有意思啊。。可是谁叫Jekyll只能生成静态的网页。。之后会考虑在这个blog上面留下自己的联系方式，同时希望通过第三方服务的方法加入评论功能。别劝我不要用Jekyll转投其他的blog service。我会告诉你我觉得用Markdown来写文章写的我很爽么，再说了现阶段没有什么比Jekyll逼格更高的东西了：D&lt;/p&gt;
+
 &lt;p&gt;嗯，所以对于那个兽性的情绪化的自己我要去放纵。但是对于那个理性的追求真理的自己我会懂得控制和隐忍。&lt;/p&gt;
 </description>
         <pubDate>Tue, 18 Nov 2014 00:00:00 +0800</pubDate>
-        <link>http://ethanluoyc.github.io/blog/2014/11/18/notes%20to%20myself/</link>
-        <guid isPermaLink="true">http://ethanluoyc.github.io/blog/2014/11/18/notes%20to%20myself/</guid>
+        <link>//2014/11/18/notes%20to%20myself/</link>
+        <guid isPermaLink="true">//2014/11/18/notes%20to%20myself/</guid>
       </item>
     
       <item>
         <title>My First Post</title>
         <description>&lt;p&gt;This is my first post :D&lt;/p&gt;
+
 &lt;p&gt;Thanks!&lt;/p&gt;
 </description>
         <pubDate>Sat, 15 Nov 2014 00:00:00 +0800</pubDate>
-        <link>http://ethanluoyc.github.io/blog/2014/11/15/my%20first%20post/</link>
-        <guid isPermaLink="true">http://ethanluoyc.github.io/blog/2014/11/15/my%20first%20post/</guid>
+        <link>//2014/11/15/my%20first%20post/</link>
+        <guid isPermaLink="true">//2014/11/15/my%20first%20post/</guid>
       </item>
     
   </channel>
