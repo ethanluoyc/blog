@@ -3,8 +3,8 @@
   <channel>
     <title>Lambda Infinity</title>
     <description>Yicheng&#39;s personal thought experiment</description>
-    <link>//</link>
-    <atom:link href="//feed.xml" rel="self" type="application/rss+xml" />
+    <link>//blog/</link>
+    <atom:link href="//blog/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
         <title>Low-Poly Rendering and Happy Birthday</title>
@@ -46,8 +46,8 @@ Take a look at how the vertices are optimized by the Voronoi iteration.&lt;/p&gt
 &lt;p&gt;Yeah so this is it so far.&lt;/p&gt;
 </description>
         <pubDate>Sun, 11 Oct 2015 00:00:00 +0800</pubDate>
-        <link>//2015/10/11/low_poly_rendering_and_happy_birthday/</link>
-        <guid isPermaLink="true">//2015/10/11/low_poly_rendering_and_happy_birthday/</guid>
+        <link>//blog/2015/10/11/low_poly_rendering_and_happy_birthday/</link>
+        <guid isPermaLink="true">//blog/2015/10/11/low_poly_rendering_and_happy_birthday/</guid>
       </item>
     
       <item>
@@ -112,8 +112,8 @@ You must notice, though, that how you can add this module to the global scope.&l
 &lt;p&gt;[^2]: &lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/10/javascript_module.html&quot;&gt;阮一峰: Javascript模块化编程：模块的写法&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 26 Jul 2015 00:00:00 +0800</pubDate>
-        <link>//2015/07/26/starting_javascript/</link>
-        <guid isPermaLink="true">//2015/07/26/starting_javascript/</guid>
+        <link>//blog/2015/07/26/starting_javascript/</link>
+        <guid isPermaLink="true">//blog/2015/07/26/starting_javascript/</guid>
       </item>
     
       <item>
@@ -145,8 +145,8 @@ You must notice, though, that how you can add this module to the global scope.&l
 &lt;p&gt;Without introducing anything (aka the use of a simple &lt;code&gt;time.sleep()&lt;/code&gt; on the last line) asynchronous, it basically keeps track of the number of likes on her profile pages. I used simple regular expressions to retrieve the number of upvotes from the profile page. Of course I made some assumptions here: I assumed that the number of upvotes on the profile page reflects the upvotes on her very specific post. Given the immense popularity of her one particular post and the &amp;ldquo;mediocre performance&amp;rdquo; of her other answers. This should be a reasonable  assumption in order to achieve fast prototyping. The script will save the times series of the upvotes to a csv so you can do some plotting with it.&lt;/p&gt;
 </description>
         <pubDate>Sat, 18 Jul 2015 00:00:00 +0800</pubDate>
-        <link>//2015/07/18/becoming-popular-online-how-long-to-take/</link>
-        <guid isPermaLink="true">//2015/07/18/becoming-popular-online-how-long-to-take/</guid>
+        <link>//blog/2015/07/18/becoming-popular-online-how-long-to-take/</link>
+        <guid isPermaLink="true">//blog/2015/07/18/becoming-popular-online-how-long-to-take/</guid>
       </item>
     
       <item>
@@ -178,8 +178,8 @@ You must notice, though, that how you can add this module to the global scope.&l
 &lt;p&gt;只愿往事不再重演。&lt;/p&gt;
 </description>
         <pubDate>Sun, 12 Jul 2015 00:00:00 +0800</pubDate>
-        <link>//2015/07/12/yechuan_cldds%20after%20a%20year/</link>
-        <guid isPermaLink="true">//2015/07/12/yechuan_cldds%20after%20a%20year/</guid>
+        <link>//blog/2015/07/12/yechuan_cldds%20after%20a%20year/</link>
+        <guid isPermaLink="true">//blog/2015/07/12/yechuan_cldds%20after%20a%20year/</guid>
       </item>
     
       <item>
@@ -229,8 +229,8 @@ one tool at all times, I decide to touch as many topics as possible.Anyway, the 
 作为一个常年拿Python做数据分析的人或者是一心研究网站框架的人，对前端的理解和掌握很有限，也就基本上停留在看到HTML可以自己修改一下.这次做这个特辑算是积累了许多有用的经验. Javascript许多的技术也还在尝试中，并没有投入到生产环境中去，不过这次做的前端算是给接下来建站积累经验。Github托管的博客不允许使用服务器计算。倒是给我联系前端留下很多机会。这个Blog在两个月之后总算进入了0.0.2，接下来想要通过第三方的服务来实现评论功能，初步打算用&lt;a href=&quot;http://docs.disqus.com/developers/universal/&quot;&gt;Disqus&lt;/a&gt;来做评论系统,等有时间了就implement就是了.&lt;/p&gt;
 </description>
         <pubDate>Wed, 24 Dec 2014 00:00:00 +0800</pubDate>
-        <link>//2014/12/24/christmas/</link>
-        <guid isPermaLink="true">//2014/12/24/christmas/</guid>
+        <link>//blog/2014/12/24/christmas/</link>
+        <guid isPermaLink="true">//blog/2014/12/24/christmas/</guid>
       </item>
     
       <item>
@@ -255,8 +255,8 @@ one tool at all times, I decide to touch as many topics as possible.Anyway, the 
 &lt;p&gt;嗯，所以对于那个兽性的情绪化的自己我要去放纵。但是对于那个理性的追求真理的自己我会懂得控制和隐忍。&lt;/p&gt;
 </description>
         <pubDate>Tue, 18 Nov 2014 00:00:00 +0800</pubDate>
-        <link>//2014/11/18/notes%20to%20myself/</link>
-        <guid isPermaLink="true">//2014/11/18/notes%20to%20myself/</guid>
+        <link>//blog/2014/11/18/notes%20to%20myself/</link>
+        <guid isPermaLink="true">//blog/2014/11/18/notes%20to%20myself/</guid>
       </item>
     
       <item>
@@ -266,8 +266,8 @@ one tool at all times, I decide to touch as many topics as possible.Anyway, the 
 &lt;p&gt;Thanks!&lt;/p&gt;
 </description>
         <pubDate>Sat, 15 Nov 2014 00:00:00 +0800</pubDate>
-        <link>//2014/11/15/my%20first%20post/</link>
-        <guid isPermaLink="true">//2014/11/15/my%20first%20post/</guid>
+        <link>//blog/2014/11/15/my%20first%20post/</link>
+        <guid isPermaLink="true">//blog/2014/11/15/my%20first%20post/</guid>
       </item>
     
   </channel>
