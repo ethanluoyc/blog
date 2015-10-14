@@ -119,45 +119,29 @@
 
 <article class="post-content yue">
   <p>This post discussed some of the things I have learned in my recent exploration on Javascript.</p>
-
 <p>A good resource for learning the language is <a href="http://eloquentjavascript.net/">Eloquent Javascript</a></p>
-
 <p>Javascript has become more popular for the past few years, possibly due to the popularity introduced by Node.</p>
-
 <p>Just like Python, Javascript is also dynamically typed. While it is easier for scripting, it also introduces difficulties in type checking in engineering large front-end projects.[^1]</p>
-
 <h2 id="modules-in-javascript">Modules in Javascript</h2>
-
-<p>One of the paradigm to declare modules is referred as <strong>Immediately-invoked Function Expression</strong>, or IIFE, is the terminology coined by Ben Alman [^2] (<strong>really worth reading</strong>). Some of the syntax used here is just tell the interpreter that this is a function expression instead of a declaration.
-You must notice, though, that how you can add this module to the global scope.</p>
-
+<p>One of the paradigm to declare modules is referred as <strong>Immediately-invoked Function Expression</strong>, or IIFE, is the terminology coined by Ben Alman <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> (<strong>really worth reading</strong>). Some of the syntax used here is just tell the interpreter that this is a function expression instead of a declaration. You must notice, though, that how you can add this module to the global scope.</p>
 <p>An example from <em>Eloquent Javascript</em>:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">exports</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Sunday&quot;</span><span class="p">,</span> <span class="s2">&quot;Monday&quot;</span><span class="p">,</span> <span class="s2">&quot;Tuesday&quot;</span><span class="p">,</span> <span class="s2">&quot;Wednesday&quot;</span><span class="p">,</span><span class="s2">&quot;Thursday&quot;</span><span class="p">,</span> <span class="s2">&quot;Friday&quot;</span><span class="p">,</span> <span class="s2">&quot;Saturday&quot;</span><span class="p">];</span>
-    <span class="nx">exports</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">names</span><span class="p">[</span><span class="nx">number</span><span class="p">];</span>
-    <span class="p">};</span>
-    <span class="nx">exports</span><span class="p">.</span><span class="nx">number</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">names</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
-    <span class="p">};</span>
-<span class="p">})(</span><span class="k">this</span><span class="p">.</span><span class="nx">weekDay</span> <span class="o">=</span> <span class="p">{});</span> <span class="c1">// This declares the weekDay in global and pass as a argument. Try change it to this.weekDay only?</span>
-</code></pre></div>
-<p>The below example further compounds the example above: it imports two modules: jQuery and Underscore from the global scope and the export to <code>mod</code>. This ensures that the dependencies are correctly introduced to the module so as to avoid any uncertainty in javascript&rsquo;s global scope.</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> <span class="nx">Updated</span> <span class="nx">upstream</span>
-    <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">mod</span><span class="p">,</span> <span class="nx">$</span><span class="p">,</span> <span class="nx">_</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">mod</span><span class="p">.</span><span class="nx">add</span> <span class="o">=</span> <span class="o">***</span><span class="p">;</span>
-        <span class="nx">mod</span><span class="p">.</span><span class="nx">sub</span> <span class="o">=</span> <span class="o">***</span><span class="p">;</span>
-    <span class="p">}((</span><span class="nb">window</span><span class="p">.</span><span class="nx">mod</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">mod</span> <span class="o">||</span> <span class="p">{}),</span> <span class="nx">jQuery</span><span class="p">,</span> <span class="nx">Underscore</span><span class="p">));</span> <span class="c1">//window is basically this in the global context.</span>
-</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">(<span class="kw">function</span>(exports) <span class="op">{</span>
+    <span class="kw">var</span> names <span class="op">=</span> [<span class="st">&quot;Sunday&quot;</span><span class="op">,</span> <span class="st">&quot;Monday&quot;</span><span class="op">,</span> <span class="st">&quot;Tuesday&quot;</span><span class="op">,</span> <span class="st">&quot;Wednesday&quot;</span><span class="op">,</span><span class="st">&quot;Thursday&quot;</span><span class="op">,</span> <span class="st">&quot;Friday&quot;</span><span class="op">,</span> <span class="st">&quot;Saturday&quot;</span>]<span class="op">;</span>
+    <span class="va">exports</span>.<span class="at">name</span> <span class="op">=</span> <span class="kw">function</span>(number) <span class="op">{</span>
+        <span class="cf">return</span> names[number]<span class="op">;</span>
+    <span class="op">};</span>
+    <span class="va">exports</span>.<span class="at">number</span> <span class="op">=</span> <span class="kw">function</span>(name) <span class="op">{</span>
+        <span class="cf">return</span> <span class="va">names</span>.<span class="at">indexOf</span>(name)<span class="op">;</span>
+    <span class="op">};</span>
+<span class="op">}</span>)(<span class="kw">this</span>.<span class="at">weekDay</span> <span class="op">=</span> <span class="op">{}</span>)<span class="op">;</span> <span class="co">// This declares the weekDay in global and pass as a argument. Try change it to this.weekDay only?</span></code></pre></div>
+<p>The below example further compounds the example above: it imports two modules: jQuery and Underscore from the global scope and the export to <code>mod</code>. This ensures that the dependencies are correctly introduced to the module so as to avoid any uncertainty in javascript's global scope.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> Updated upstream
+    (<span class="kw">function</span> (mod<span class="op">,</span> $<span class="op">,</span> _) <span class="op">{</span>
+        <span class="va">mod</span>.<span class="at">add</span> <span class="op">=</span> <span class="op">***;</span>
+        <span class="va">mod</span>.<span class="at">sub</span> <span class="op">=</span> <span class="op">***;</span>
+    <span class="op">}</span>((<span class="va">window</span>.<span class="at">mod</span> <span class="op">=</span> <span class="va">window</span>.<span class="at">mod</span> <span class="op">||</span> <span class="op">{}</span>)<span class="op">,</span> jQuery<span class="op">,</span> Underscore))<span class="op">;</span> <span class="co">//window is basically this in the global context.</span></code></pre></div>
 <h2 id="footnotes">Footnotes:</h2>
-
-<p>=======
-(function (mod, $, _) {
-    mod.add = <em>**;
-    mod.sub = *</em>*;
-}((window.mod = window.mod || {}), jQuery, Underscore)); //window is basically this in the global context.
-&ldquo;`</p>
-
+<p>======= (function (mod, $, _) { mod.add = <strong><em>; mod.sub = </em></strong>; }((window.mod = window.mod || {}), jQuery, Underscore)); //window is basically this in the global context. ```</p>
 <blockquote>
 <blockquote>
 <blockquote>
@@ -165,8 +149,7 @@ You must notice, though, that how you can add this module to the global scope.</
 <blockquote>
 <blockquote>
 <blockquote>
-<p>Stashed changes
-[^1]: <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/#iife">Immediately-Invoked Function Expression (IIFE)</a></p>
+<p>Stashed changes [^1]: <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/#iife">Immediately-Invoked Function Expression (IIFE)</a></p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -174,8 +157,12 @@ You must notice, though, that how you can add this module to the global scope.</
 </blockquote>
 </blockquote>
 </blockquote>
-
-<p>[^2]: <a href="http://www.ruanyifeng.com/blog/2012/10/javascript_module.html">阮一峰: Javascript模块化编程：模块的写法</a></p>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="http://www.ruanyifeng.com/blog/2012/10/javascript_module.html">阮一峰: Javascript模块化编程：模块的写法</a><a href="#fnref1">↩</a></p></li>
+</ol>
+</section>
 
 </article>
 
